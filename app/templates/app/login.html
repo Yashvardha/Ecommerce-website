@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+
+<div class="container my-5 ">
+<h1 class="my-4">Login</h1>
+    <form method='POST' >
+        {% csrf_token %}
+        {% for fm in form %}
+        <div class="mb-3">
+            <label for="text" class="form-label">{{fm.label_tag}}</label>
+            {% render_field fm class='form-control' %}
+            <div class="">{{fm.error|striptags}}</div>
+        </div>
+        {% endfor %}
+        <a href="{% url 'password_reset' %}" class="my-4">Forgot Password ?</a><br><br>
+        
+        <button type="submit" class="btn btn-outline-dark">Login</button>
+    </form>
+    
+</div>
+
+{% endblock main-content %}

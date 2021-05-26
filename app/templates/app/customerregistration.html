@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Customer Registration{% endblock title %}
+{% block main-content %}
+<div class="container">
+   <div class="row my-3">
+      <div class="col-sm-6 offset-sm-3">
+         <h3>Customer Registration</h3>
+         <hr>
+         <form method="POST">
+            {% csrf_token %}
+            {% for i in fm %}
+            <div class="mb-3">
+               <label for="text" class="form-label">{{i.label_tag}}</label>
+               {% render_field i class='form-control' %}
+               <div class="">{{i.error|striptags}}</div>
+            </div> 
+            {% endfor %}
+            <button type="submit" class="btn btn-outline-dark">Submit</button>
+            <div class="text-primary text-center fw-bold">
+            <small>Existing User ? <a href="{% url 'login' %}" class="text-danger"></a></small>
+            </div>
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <p class="alert alert-danger">{{error}}</p>
+            {% endfor %}
+            {% endif %}
+         </form>
+      </div>
+   </div>
+</div>
+{% endblock main-content %}
